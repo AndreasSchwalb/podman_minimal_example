@@ -1,0 +1,6 @@
+version: "2.4"
+services:
+  min-server:
+    image: minimal-server
+    ports:
+      - 3000:80

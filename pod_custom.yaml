@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: minimal-server-pod
+  name: minimal-server-pod
+  namespace: default
+spec:
+  containers:
+  - image: custom_container
+    name: testserver-1
+    command:
+      - python
+      - /app/main.py
+    env:
+      - name: TEST_ENV
+        value: value1
+      - name: TEST_CONF_MAP
+        valueFrom:
+          configMapKeyRef:
+            name: env-config
+            key: test_env_1
+    ports:
+    - containerPort: 80
+      hostPort: 80
+      protocol: TCP
+    securityContext:
+      allowPrivilegeEscalation: true
+      capabilities:
+        drop:
+        - CAP_MKNOD
+        - CAP_NET_RAW
+        - CAP_AUDIT_WRITE
+      privileged: false
+      readOnlyRootFilesystem: false
+  restartPolicy: Never
+
