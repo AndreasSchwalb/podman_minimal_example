@@ -1,0 +1,38 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+Vagrant.configure("2") do |config|
+ 
+  #base box
+  config.vm.box = "debian/bullseye64"
+
+  # provider specific configuration
+  config.vm.provider :libvirt  do |libvirt|
+    
+    libvirt.cpus = 2
+    libvirt.default_prefix = "debian_dev_podman_"
+    libvirt.memory = "4096"
+    libvirt.graphics_type = "spice"
+    libvirt.graphics_ip = "0.0.0.0"
+    libvirt.graphics_port = "5900"
+    libvirt.video_type = "qxl"
+    libvirt.driver = "kvm"
+    libvirt.storage_pool_name = "linux"
+    libvirt.title = "dev-debian-podman"
+    libvirt.disk_bus = "virtio"
+    libvirt.keymap = "de"
+    libvirt.channel :type => 'spicevmc', 
+      :target_name => 'com.redhat.spice.0', 
+      :target_type => 'virtio'
+
+    libvirt.channel :type => 'unix', 
+      :target_name => 'org.qemu.guest_agent.0', 
+      :target_type => 'virtio'
+  
+  end
+  
+  # Provisioning
+  config.vm.provision "file", source: "./configs/", destination: "/home/vagrant/"
+  config.vm.provision "shell", path: "install.sh"  
+end
