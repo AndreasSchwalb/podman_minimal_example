@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   labels:
     app: minimal-server-pod
-  name: minimal-server
+  name: minimal-server-pod
   namespace: default
 spec:
   containers:

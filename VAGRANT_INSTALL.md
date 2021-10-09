@@ -30,6 +30,20 @@ Cmnd_Alias VAGRANT_NFSD_APPLY = /usr/sbin/exportfs -ar
 %sudo ALL=(root) NOPASSWD: VAGRANT_EXPORTS_CHOWN, VAGRANT_EXPORTS_MV,VAGRANT_NFSD_CHECK, VAGRANT_NFSD_START, VAGRANT_NFSD_APPLY
 ```
 
+# Start Vagrant
+
+- change to vagrant folder by ```cd vagrant```
+- Adjust following variables in file ```Vagrantfile``` to your needs.
+    - libvirt.default_prefix
+    - libvirt.title
+    - libvirt.storage_pool_name
+- run ```vagrnat up```
+
+## Default login data for virual machine
+
+Username: podman
+
+Password: podman
 # Interesting links
 GIT vagrant-libvirt incl. good documentation:
 
